@@ -3,7 +3,7 @@ var app = express()
 var arachnidRouter = express.Router()
 var ArachnidQuery = require('../db/arachnidQuery.js')
 
-var arachnidQuery = new ArachnidQuery
+var arachnidQuery = new ArachnidQuery()
 
 //all arachnids
 arachnidRouter.get('/',function(req,res){
