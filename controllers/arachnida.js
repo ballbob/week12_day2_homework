@@ -33,4 +33,19 @@ arachnidRouter.post('/',function(req,res){
     })
   })
 
+//delete an arachnid
+arachnidRouter.delete('/:name',function(req,res){
+  arachnidQuery.delete(req.params.name,function(arachnids){
+    res.json(arachnids)
+  })
+})
+
+//update an arachnid
+arachnidRouter.put('/:id',function(req,res){
+  arachnidQuery.update(req.params.id,req.body,function(arachnids){
+    res.json(arachnids)
+  })
+})
+
+
 module.exports = arachnidRouter

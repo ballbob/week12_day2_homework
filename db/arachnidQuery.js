@@ -18,6 +18,7 @@ ArachnidQuery.prototype = {
     })
   },
 
+//find by a search term
   find: function(searchID,functionWhenFinished){
     MongoClient.connect(this.url,function(error,db){
       if(db){
@@ -32,6 +33,7 @@ ArachnidQuery.prototype = {
     })
   },
 
+//add an arachnid
   add: function(arachnidToAdd,functionWhenFinished){
     MongoClient.connect(this.url,function(error,db){
       if(db){
@@ -43,8 +45,37 @@ ArachnidQuery.prototype = {
         })
       }
     })
+  },
+
+//delete an arachnid
+  delete: function(nameToDelete,functionWhenFinished){
+   MongoClient.connect(this.url,function(error,db){
+     if(db){
+       var arachnids = db.collection('arachnida')
+
+       arachnids.remove({name: nameToDelete})
+
+       arachnids.find().toArray(function(err,docs){
+         functionWhenFinished(docs)
+       })
+     }
+   })
+  },
+
+//update an arachnid's name
+  update: function(arachnidId, name, callback){
+    MongoClient.connect(this.url, function(err, db){
+      if(db){
+        var arachnids = db.collection('arachnida')
+        arachnids.updateOne( { _id: ObjectID(arachnidId) }, { $set: name } )
+        arachnids.find().toArray( function(err, docs){
+          callback(docs)
+        })
+      }
+    })
   }
 
+//end
 }
 
 module.exports = ArachnidQuery
