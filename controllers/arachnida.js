@@ -15,7 +15,7 @@ arachnidRouter.get('/',function(req,res){
 })
 
 //arachnid by name
-arachnidRouter.get('/name',function(req,res){
+arachnidRouter.get('/:name',function(req,res){
   arachnidQuery.find(req.params.name,function(documents){
     res.json(documents)
   })
