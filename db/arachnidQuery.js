@@ -32,7 +32,18 @@ ArachnidQuery.prototype = {
     })
   },
 
+  add: function(arachnidToAdd,functionWhenFinished){
+    MongoClient.connect(this.url,function(error,db){
+      if(db){
+        var bugs = db.collection('arachnida')
+        bugs.insert(arachnidToAdd)
 
+        bugs.find().toArray(function(err,docs){
+          functionWhenFinished(docs)
+        })
+      }
+    })
+  }
 
 }
 

@@ -27,6 +27,10 @@ arachnidRouter.post('/',function(req,res){
     name: req.body.name,
     order: req.body.order
     }
+
+    arachnidQuery.add(newArachnid,function(results){
+      res.json(results)
+    })
   })
 
 module.exports = arachnidRouter
